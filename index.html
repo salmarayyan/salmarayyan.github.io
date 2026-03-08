@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salma</title>
+    <title>Salma Rayyan</title>
     <style>
         * {
             margin: 0;
@@ -11,245 +11,415 @@
             box-sizing: border-box;
         }
 
-        body {
-            background-color: #0a0f2c;
-            font-family: Arial, sans-serif;
-            color: #e0e6f0;
-            min-height: 100vh;
+        /* Carpet-inspired color palette
+           teal:        #4e7f8c
+           ivory:       #faf4e8
+           dusty rose:  #b87060
+           burgundy:    #7a2e38
+           lavender:    #8878a8
+           amber:       #c48a3a
+        */
+
+        html {
+            background-color: #f5ede0;
         }
 
-        nav {
+        body {
+            background-color: #faf4e8;
+            /* Soft watercolor blobs in corners */
+            background-image:
+                radial-gradient(ellipse 420px 340px at -5% 0%,   rgba(184, 112,  96, 0.13) 0%, transparent 70%),
+                radial-gradient(ellipse 360px 420px at 105% 2%,  rgba(136, 120, 168, 0.11) 0%, transparent 70%),
+                radial-gradient(ellipse 300px 260px at 108% 98%, rgba( 78, 127, 140, 0.10) 0%, transparent 70%),
+                radial-gradient(ellipse 380px 280px at -4% 96%,  rgba(196, 138,  58, 0.09) 0%, transparent 70%);
+            color: #2a1f18;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 56px 24px 96px;
+        }
+
+        /* Thin teal top border accent */
+        body::before {
+            content: '';
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, #4e7f8c, #8878a8, #b87060, #c48a3a, #4e7f8c);
+            margin-bottom: 52px;
+            border-radius: 2px;
+            opacity: 0.7;
+        }
+
+        /* ── Header ── */
+        .header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 24px 60px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 40px;
         }
 
-        .logo {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #7eb8f7;
-            letter-spacing: 1px;
+        .header-text h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
         }
 
-        nav ul {
-            list-style: none;
+        .header-text .bio p {
+            margin-bottom: 10px;
+            color: #3a2a20;
+        }
+
+        .header-text .bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .profile-placeholder {
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d8cfe8 0%, #b8d4d8 100%);
+            border: 1px solid #c8b898;
+            flex-shrink: 0;
+        }
+
+        /* ── Social links ── */
+        .links {
             display: flex;
-            gap: 36px;
+            gap: 14px;
+            margin-top: 16px;
+            font-size: 0.88rem;
+            flex-wrap: wrap;
         }
 
-        nav ul a {
-            color: #b0bcd4;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.2s;
+        .links a {
+            color: #4e7f8c;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-style: dotted;
+            text-decoration-color: #9bbfc8;
         }
 
-        nav ul a:hover {
-            color: #7eb8f7;
+        .links a:hover {
+            color: #3a6070;
+            text-decoration-style: solid;
         }
 
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 100px 60px 80px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .hero h1 span {
-            color: #7eb8f7;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #8899b4;
-            max-width: 500px;
-            line-height: 1.7;
-            margin-bottom: 36px;
-        }
-
-        .hero-links {
-            display: flex;
-            gap: 16px;
-        }
-
-        .btn {
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: #7eb8f7;
-            color: #0a0f2c;
-        }
-
-        .btn-primary:hover {
-            background-color: #a8d1ff;
-        }
-
-        .btn-secondary {
-            border: 1px solid #7eb8f7;
-            color: #7eb8f7;
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(126, 184, 247, 0.1);
-        }
-
+        /* ── Sections ── */
         section {
-            padding: 60px 60px;
-            max-width: 960px;
-            margin: 0 auto;
+            margin-bottom: 44px;
         }
 
         section h2 {
-            font-size: 1.8rem;
-            color: #ffffff;
-            margin-bottom: 32px;
-            border-left: 4px solid #7eb8f7;
-            padding-left: 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #4e7f8c;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d8c8a8;
         }
 
-        .about p {
-            color: #8899b4;
-            line-height: 1.8;
-            font-size: 1.05rem;
+        /* ── Entries (shared by experience, projects, education) ── */
+        .entry {
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #ece0c8;
         }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
+        .entry:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
         }
 
-        .card {
-            background-color: #111a3a;
-            border: 1px solid rgba(126, 184, 247, 0.15);
-            border-radius: 12px;
-            padding: 28px;
-            transition: border-color 0.2s, transform 0.2s;
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 3px;
         }
 
-        .card:hover {
-            border-color: #7eb8f7;
-            transform: translateY(-4px);
+        .entry-title {
+            font-weight: 600;
+            font-size: 0.97rem;
         }
 
-        .card h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+        .entry-date {
+            font-size: 0.82rem;
+            color: #b09878;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        .card p {
-            color: #8899b4;
-            font-size: 0.92rem;
-            line-height: 1.6;
+        .entry-sub {
+            font-size: 0.86rem;
+            color: #887060;
+            margin-bottom: 6px;
+            font-style: italic;
         }
 
+        .entry-body {
+            font-size: 0.88rem;
+            color: #5a4838;
+            line-height: 1.65;
+        }
+
+        .entry-body p {
+            margin-bottom: 5px;
+        }
+
+        .entry-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Awards / tags ── */
         .tag {
             display: inline-block;
-            margin-top: 14px;
-            margin-right: 6px;
-            padding: 4px 10px;
-            background-color: rgba(126, 184, 247, 0.12);
-            color: #7eb8f7;
-            border-radius: 4px;
             font-size: 0.78rem;
+            border: 1px solid #d0a898;
+            border-radius: 3px;
+            padding: 1px 7px;
+            color: #a06858;
+            margin-top: 8px;
+            margin-right: 4px;
         }
 
-        .contact {
-            text-align: center;
-            padding-bottom: 80px;
+        /* ── MUN list ── */
+        .mun-list {
+            list-style: none;
+            margin-top: 6px;
         }
 
-        .contact p {
-            color: #8899b4;
-            margin-bottom: 24px;
-            font-size: 1.05rem;
+        .mun-list li {
+            font-size: 0.88rem;
+            color: #5a4838;
+            padding: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid #ece0c8;
         }
 
+        .mun-list li:last-child {
+            border-bottom: none;
+        }
+
+        .mun-award {
+            font-size: 0.78rem;
+            border: 1px solid #d0a898;
+            border-radius: 3px;
+            padding: 1px 7px;
+            color: #a06858;
+            white-space: nowrap;
+        }
+
+        /* ── Substack essays ── */
+        .essay-list {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .essay-list li {
+            font-size: 0.88rem;
+            color: #5a4838;
+            padding: 5px 0;
+            border-bottom: 1px solid #ece0c8;
+            font-style: italic;
+        }
+
+        .essay-list li:last-child {
+            border-bottom: none;
+        }
+
+        .essay-list li::before {
+            content: "— ";
+            color: #c8a888;
+        }
+
+        /* ── Footer ── */
         footer {
-            text-align: center;
-            padding: 24px;
-            color: #3d4f6e;
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.83rem;
+            color: #b09878;
+            border-top: 1px solid #d8c8a8;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer a {
+            color: #b09878;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-style: dotted;
+        }
+
+        footer a:hover {
+            color: #2a1f18;
+            text-decoration-style: solid;
+        }
+
+        a {
+            color: #4e7f8c;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">salma.</div>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="hero">
-        <h1>Hi, I'm <span>Salma</span></h1>
-        <p>I love AI and building things on the web. Welcome to my little corner of the internet.</p>
-        <div class="hero-links">
-            <a href="#projects" class="btn btn-primary">View Projects</a>
-            <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+    <div class="header">
+        <div class="header-text">
+            <h1>Salma Rayyan</h1>
+            <div class="bio">
+                <p>High school senior based in Amman, Jordan. Interested in AI, writing, and building things.</p>
+            </div>
+            <div class="links">
+                <a href="mailto:salmarayyann@gmail.com">Email</a>
+                <a href="https://substack.com/">Substack</a>
+                <a href="https://github.com/">GitHub</a>
+            </div>
         </div>
+        <div class="profile-placeholder"></div>
     </div>
 
-    <section id="about" class="about">
-        <h2>About</h2>
-        <p>I'm Salma, a developer with a passion for artificial intelligence and the possibilities it unlocks. I enjoy exploring new tools, building projects, and learning something new every day.</p>
+    <section id="education">
+        <h2>Education</h2>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">IEC Schools</div>
+                <div class="entry-date">2023 – 2026</div>
+            </div>
+            <div class="entry-sub">American High School Diploma · GPA 100/100</div>
+            <div class="entry-body">
+                <p>AP Scholar with Honor · AP Capstone Diploma Candidate</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="experience">
+        <h2>Experience</h2>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">Ammanreads Book Club</div>
+                <div class="entry-date">2024 – present</div>
+            </div>
+            <div class="entry-sub">Founder</div>
+            <div class="entry-body">
+                <p>Founded a teen and young adult book club dedicated to fostering the love of storytelling across Jordan. Manage operations including marketing, social media, monthly book selections, and leading discussions.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">Mind Lab Robotics and STEAM Center</div>
+                <div class="entry-date">2025</div>
+            </div>
+            <div class="entry-sub">Volunteer</div>
+            <div class="entry-body">
+                <p>Assisted kids in STEM and robotics camp workshops, guided projects, organized activities, and helped simplify science concepts.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">EQ Pop-Up Festival — Six Seconds & UNICEF</div>
+                <div class="entry-date">2025</div>
+            </div>
+            <div class="entry-sub">Event Organizer</div>
+            <div class="entry-body">
+                <p>Completed training led by Ruba Al Sadi. Helped lead SEL (social and emotional learning) activities to foster emotional intelligence in kids over a two-day program.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">Codability Summer Camp</div>
+                <div class="entry-date">2022</div>
+            </div>
+            <div class="entry-sub">Princess Sumaya University for Technology</div>
+            <div class="entry-body">
+                <p>Learned foundational coding and problem solving through C++ workshops and weekly collaborative projects.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">Speedcubing</div>
+                <div class="entry-date">2019 – present</div>
+            </div>
+            <div class="entry-body">
+                <p>Represented Jordan in official World Cube Association (WCA) competitions. Top 200 national rankings across multiple events; personal best of 35 seconds in the 3×3 Rubik's Cube.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">Model United Nations</div>
+                <div class="entry-date">2022 – present</div>
+            </div>
+            <div class="entry-body">
+                <ul class="mun-list">
+                    <li>
+                        <span>DJISMUN IX — Jeddah, KSA</span>
+                        <span class="mun-award">Best Judge · 2023</span>
+                    </li>
+                    <li>
+                        <span>IECAP MUN 8th Conference</span>
+                        <span class="mun-award">Best Delegate · 2023</span>
+                    </li>
+                    <li>
+                        <span>IECMUN'22</span>
+                        <span class="mun-award">2022</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">School Music Band</div>
+                <div class="entry-date">2018 – 2021, 2023 – present</div>
+            </div>
+            <div class="entry-sub">Vocalist & Performer</div>
+            <div class="entry-body">
+                <p>Lead vocalist in concerts and performances, including two solo stage appearances and a feature in a "Heal the World" tribute school music video.</p>
+            </div>
+        </div>
+
     </section>
 
     <section id="projects">
         <h2>Projects</h2>
-        <div class="projects-grid">
-            <div class="card">
-                <h3>Project One</h3>
-                <p>A short description of what this project does and the problem it solves.</p>
-                <span class="tag">Python</span>
-                <span class="tag">AI</span>
+
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">Aftertaste</div>
+                <div class="entry-date">2024 – present</div>
             </div>
-            <div class="card">
-                <h3>Project Two</h3>
-                <p>A short description of what this project does and the problem it solves.</p>
-                <span class="tag">JavaScript</span>
-                <span class="tag">Web</span>
-            </div>
-            <div class="card">
-                <h3>Project Three</h3>
-                <p>A short description of what this project does and the problem it solves.</p>
-                <span class="tag">ML</span>
-                <span class="tag">Data</span>
+            <div class="entry-sub">Author · <a href="https://substack.com/" style="color:#887060; text-decoration-style: dotted; text-decoration-color: #c8a888; text-underline-offset: 2px;">Substack Newsletter</a></div>
+            <div class="entry-body">
+                <p>Original essays on life, identity, and storytelling — blending personal reflection with cultural analysis. Topics range from coming-of-age experiences and emotional introspection to film critiques and philosophical musings.</p>
+                <ul class="essay-list">
+                    <li>Blurred Homeland</li>
+                    <li>Reliving Trauma for the Screen</li>
+                    <li>We're Both Under the Same Sky</li>
+                </ul>
             </div>
         </div>
-    </section>
 
-    <section id="contact" class="contact">
-        <h2 style="text-align:center; border-left: none; padding-left: 0;">Get in Touch</h2>
-        <p>Have a project in mind or just want to say hi? Feel free to reach out.</p>
-        <a href="mailto:hello@example.com" class="btn btn-primary">Say Hello</a>
     </section>
 
     <footer>
-        &copy; 2026 Salma. Built with love.
+        <span>Amman, Jordan · +962 795690667</span>
+        <span>Last updated March 2026</span>
     </footer>
 
 </body>
