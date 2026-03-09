@@ -11,70 +11,119 @@
             box-sizing: border-box;
         }
 
-        /* Carpet-inspired color palette
-           teal:        #4e7f8c
-           ivory:       #faf4e8
-           dusty rose:  #b87060
-           burgundy:    #7a2e38
-           lavender:    #8878a8
-           amber:       #c48a3a
-        */
-
         html {
-            background-color: #f5ede0;
+            background-color: #fff;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: #faf4e8;
-            /* Soft watercolor blobs in corners */
-            background-image:
-                radial-gradient(ellipse 420px 340px at -5% 0%,   rgba(184, 112,  96, 0.13) 0%, transparent 70%),
-                radial-gradient(ellipse 360px 420px at 105% 2%,  rgba(136, 120, 168, 0.11) 0%, transparent 70%),
-                radial-gradient(ellipse 300px 260px at 108% 98%, rgba( 78, 127, 140, 0.10) 0%, transparent 70%),
-                radial-gradient(ellipse 380px 280px at -4% 96%,  rgba(196, 138,  58, 0.09) 0%, transparent 70%);
+            background-color: #fff;
             color: #2a1f18;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
             font-size: 15px;
             line-height: 1.6;
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 56px 24px 96px;
         }
 
-        /* Thin teal top border accent */
-        body::before {
+        /* ── Hero ── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 52px;
+            position: relative;
+        }
+
+        #hero::before {
             content: '';
             display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 3px;
             background: linear-gradient(90deg, #4e7f8c, #8878a8, #b87060, #c48a3a, #4e7f8c);
-            margin-bottom: 52px;
-            border-radius: 2px;
             opacity: 0.7;
         }
 
-        /* ── Header ── */
+        .hero-title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(3.6rem, 10vw, 8.5rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            color: #000;
+            margin-bottom: 32px;
+        }
+
+        .hero-title .dot {
+            color: #b87060;
+        }
+
+        .hero-bio {
+            font-size: 1rem;
+            color: #6a5040;
+            max-width: 420px;
+            line-height: 1.65;
+            margin-bottom: 24px;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-links a {
+            font-size: 0.82rem;
+            color: #4e7f8c;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-style: dotted;
+            text-decoration-color: #9bbfc8;
+        }
+
+        .hero-links a:hover {
+            color: #3a6070;
+            text-decoration-style: solid;
+        }
+
+        /* Scroll hint */
+        .scroll-hint {
+            position: absolute;
+            bottom: 36px;
+            left: 52px;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #b09878;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scroll-hint::after {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 1px;
+            background: #b09878;
+        }
+
+        /* ── Main content ── */
+        .content {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 72px 24px 96px;
+        }
+
+        /* ── Header block inside content ── */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             gap: 32px;
             margin-bottom: 40px;
-        }
-
-        .header-text h1 {
-            font-size: 1.45rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            letter-spacing: -0.01em;
-        }
-
-        .header-text .bio p {
-            margin-bottom: 10px;
-            color: #3a2a20;
-        }
-
-        .header-text .bio p:last-child {
-            margin-bottom: 0;
         }
 
         .profile-placeholder {
@@ -86,54 +135,27 @@
             flex-shrink: 0;
         }
 
-        /* ── Social links ── */
-        .links {
-            display: flex;
-            gap: 14px;
-            margin-top: 16px;
-            font-size: 0.88rem;
-            flex-wrap: wrap;
-        }
-
-        .links a {
-            color: #4e7f8c;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            text-decoration-style: dotted;
-            text-decoration-color: #9bbfc8;
-        }
-
-        .links a:hover {
-            color: #3a6070;
-            text-decoration-style: solid;
-        }
-
         /* ── Sections ── */
         section {
-            margin-bottom: 44px;
+            margin-bottom: 60px;
         }
 
         section h2 {
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #4e7f8c;
-            margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #d8c8a8;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-transform: lowercase;
+            color: #1e1410;
+            margin-bottom: 28px;
         }
 
-        /* ── Entries (shared by experience, projects, education) ── */
+        /* ── Entries ── */
         .entry {
-            margin-bottom: 28px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid #ece0c8;
+            margin-bottom: 32px;
         }
 
         .entry:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
             margin-bottom: 0;
         }
 
@@ -142,24 +164,25 @@
             justify-content: space-between;
             align-items: baseline;
             gap: 16px;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .entry-title {
             font-weight: 600;
             font-size: 0.97rem;
+            color: #1e1410;
         }
 
         .entry-date {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: #b09878;
             white-space: nowrap;
             flex-shrink: 0;
         }
 
         .entry-sub {
-            font-size: 0.86rem;
-            color: #887060;
+            font-size: 0.84rem;
+            color: #9a7e68;
             margin-bottom: 6px;
             font-style: italic;
         }
@@ -167,7 +190,7 @@
         .entry-body {
             font-size: 0.88rem;
             color: #5a4838;
-            line-height: 1.65;
+            line-height: 1.7;
         }
 
         .entry-body p {
@@ -176,18 +199,6 @@
 
         .entry-body p:last-child {
             margin-bottom: 0;
-        }
-
-        /* ── Awards / tags ── */
-        .tag {
-            display: inline-block;
-            font-size: 0.78rem;
-            border: 1px solid #d0a898;
-            border-radius: 3px;
-            padding: 1px 7px;
-            color: #a06858;
-            margin-top: 8px;
-            margin-right: 4px;
         }
 
         /* ── MUN list ── */
@@ -203,43 +214,104 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            border-bottom: 1px solid #ece0c8;
-        }
-
-        .mun-list li:last-child {
-            border-bottom: none;
+            gap: 12px;
         }
 
         .mun-award {
             font-size: 0.78rem;
-            border: 1px solid #d0a898;
-            border-radius: 3px;
-            padding: 1px 7px;
-            color: #a06858;
+            font-style: italic;
+            color: #b09878;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        /* ── Substack essays ── */
-        .essay-list {
-            list-style: none;
-            margin-top: 8px;
+        /* ── Notable works ── */
+        .notable {
+            margin-top: 6px;
+            font-size: 0.84rem;
+            font-style: italic;
+            color: #9a8070;
         }
 
-        .essay-list li {
-            font-size: 0.88rem;
-            color: #5a4838;
-            padding: 5px 0;
-            border-bottom: 1px solid #ece0c8;
+        /* ── Substack posts ── */
+        .posts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-top: 16px;
+        }
+
+        .post-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 14px 0;
+            border-top: 1px solid #f0ece6;
+            transition: opacity 0.18s;
+        }
+
+        .post-card:last-child {
+            border-bottom: 1px solid #f0ece6;
+        }
+
+        .post-card:hover {
+            opacity: 0.7;
+        }
+
+        .post-thumb {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 4px;
+            flex-shrink: 0;
+            background: #ece8e2;
+        }
+
+        .post-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .post-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1e1410;
+            margin-bottom: 4px;
+            line-height: 1.35;
+        }
+
+        .post-excerpt {
+            font-size: 0.82rem;
+            color: #6a5040;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .post-date {
+            font-size: 0.75rem;
+            color: #b09878;
+        }
+
+        .posts-loading {
+            font-size: 0.86rem;
+            color: #b09878;
             font-style: italic;
         }
 
-        .essay-list li:last-child {
-            border-bottom: none;
+        .posts-error {
+            font-size: 0.86rem;
+            color: #b09878;
         }
 
-        .essay-list li::before {
-            content: "— ";
-            color: #c8a888;
+        .posts-error a {
+            color: #4e7f8c;
         }
 
         /* ── Footer ── */
@@ -253,141 +325,250 @@
             align-items: center;
         }
 
-        footer a {
-            color: #b09878;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            text-decoration-style: dotted;
-        }
-
-        footer a:hover {
-            color: #2a1f18;
-            text-decoration-style: solid;
-        }
-
         a {
             color: #4e7f8c;
+        }
+
+        @media (max-width: 600px) {
+            #hero { padding: 0 24px; }
+            .scroll-hint { left: 24px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="header-text">
-            <h1>Salma Rayyan</h1>
-            <div class="bio">
-                <p>High school senior based in Amman, Jordan. Interested in AI, writing, and building things.</p>
-            </div>
-            <div class="links">
-                <a href="mailto:salmarayyann@gmail.com">Email</a>
-                <a href="https://github.com/">GitHub</a>
-            </div>
+    <!-- ── Hero ── -->
+    <div id="hero">
+        <div class="hero-title">salma rayyan<span class="dot">.</span></div>
+        <p class="hero-bio">High school senior based in Amman, Jordan. Interested in AI, writing, and building things.</p>
+        <div class="hero-links">
+            <a href="mailto:salmarayyann@gmail.com">Email</a>
+            <a href="https://github.com/">GitHub</a>
+            <a href="https://createdbysalma.substack.com" target="_blank" rel="noopener">Substack</a>
         </div>
-        <div class="profile-placeholder"></div>
+        <div class="scroll-hint">Scroll</div>
     </div>
 
-    <section id="education">
-        <h2>Education</h2>
+    <!-- ── Content ── -->
+    <div class="content">
 
-        <div class="entry">
-            <div class="entry-header">
-                <div class="entry-title">IEC Schools</div>
-                <div class="entry-date">2023 – 2026</div>
-            </div>
-            <div class="entry-sub">American High School Diploma · GPA 100/100</div>
-            <div class="entry-body">
-                <p>AP Scholar with Honor · AP Capstone Diploma Candidate</p>
-            </div>
-        </div>
+        <section id="education">
+            <h2>Education</h2>
 
-    </section>
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">IEC Schools</div>
+                    <div class="entry-date">2023 – 2026</div>
+                </div>
+                <div class="entry-sub">American High School Diploma · GPA 100/100</div>
+                <div class="entry-body">
+                    <p>AP Scholar with Honor · AP Capstone Diploma Candidate</p>
+                </div>
+            </div>
 
-    <section id="experience">
-        <h2>Experience</h2>
+        </section>
 
-        <div class="entry">
-            <div class="entry-header">
-                <div class="entry-title">Ammanreads Book Club</div>
-                <div class="entry-date">2024 – present</div>
-            </div>
-            <div class="entry-sub">Founder</div>
-            <div class="entry-body">
-                <p>Founded a teen and young adult book club dedicated to fostering the love of storytelling across Jordan. Manage operations including marketing, social media, monthly book selections, and leading discussions.</p>
-            </div>
-        </div>
+        <section id="experience">
+            <h2>Experience</h2>
 
-        <div class="entry">
-            <div class="entry-header">
-                <div class="entry-title">Mind Lab Robotics and STEAM Center</div>
-                <div class="entry-date">2025</div>
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">Ammanreads Book Club</div>
+                    <div class="entry-date">2024 – present</div>
+                </div>
+                <div class="entry-sub">Founder</div>
+                <div class="entry-body">
+                    <p>Founded Ammanreads, a teen and young adult book club dedicated to fostering the love of storytelling within local communities across Jordan.</p>
+                    <p>Manage most operations, including marketing and social media, coordinating monthly book selections, and leading engaging discussions and meetings.</p>
+                </div>
             </div>
-            <div class="entry-sub">Volunteer</div>
-            <div class="entry-body">
-                <p>Assisted kids in STEM and robotics camp workshops, guided projects, organized activities, and helped simplify science concepts.</p>
-            </div>
-        </div>
 
-        <div class="entry">
-            <div class="entry-header">
-                <div class="entry-title">EQ Pop-Up Festival — Six Seconds & UNICEF</div>
-                <div class="entry-date">2025</div>
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">Speedcubing</div>
+                    <div class="entry-date">2019 – present</div>
+                </div>
+                <div class="entry-body">
+                    <p>Represented Jordan in official World Cube Association (WCA) competitions across multiple events and ranked as high as 133rd nationally. Recently achieved a personal best of 37 seconds in the 3×3 Rubik's Cube at Jordan Nationals 2025.</p>
+                </div>
             </div>
-            <div class="entry-sub">Event Organizer</div>
-            <div class="entry-body">
-                <p>Completed training led by Ruba Al Sadi. Helped lead SEL (social and emotional learning) activities to foster emotional intelligence in kids over a two-day program.</p>
-            </div>
-        </div>
 
-        <div class="entry">
-            <div class="entry-header">
-                <div class="entry-title">Codability Summer Camp</div>
-                <div class="entry-date">2022</div>
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">Codability Summer Camp</div>
+                    <div class="entry-date">2022</div>
+                </div>
+                <div class="entry-sub">Princess Sumaya University for Technology</div>
+                <div class="entry-body">
+                    <p>Learned foundational coding and problem solving skills during C++ workshops and collaborated with people on weekly projects.</p>
+                </div>
             </div>
-            <div class="entry-sub">Princess Sumaya University for Technology</div>
-            <div class="entry-body">
-                <p>Learned foundational coding and problem solving through C++ workshops and weekly collaborative projects.</p>
-            </div>
-        </div>
 
-        <div class="entry">
-            <div class="entry-header">
-                <div class="entry-title">Speedcubing</div>
-                <div class="entry-date">2019 – present</div>
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">Mind Lab Robotics and STEAM Center</div>
+                    <div class="entry-date">2025</div>
+                </div>
+                <div class="entry-sub">Volunteer</div>
+                <div class="entry-body">
+                    <p>Assisted kids in STEM and robotics camp workshops, guided them in projects, organized activities, and helped simplify science concepts.</p>
+                </div>
             </div>
-            <div class="entry-body">
-                <p>Represented Jordan in official World Cube Association (WCA) competitions. Top 200 national rankings across multiple events; personal best of 35 seconds in the 3×3 Rubik's Cube.</p>
-            </div>
-        </div>
 
-        <div class="entry">
-            <div class="entry-header">
-                <div class="entry-title">Model United Nations</div>
-                <div class="entry-date">2022 – present</div>
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">EQ Pop-Up Festival — Six Seconds & UNICEF</div>
+                    <div class="entry-date">2025</div>
+                </div>
+                <div class="entry-sub">Event Organizer</div>
+                <div class="entry-body">
+                    <p>Completed training workshop led by Ruba Al Sadi & helped lead and organize SEL (social and emotional learning) activities to foster emotional intelligence in kids over a two-day program.</p>
+                </div>
             </div>
-            <div class="entry-body">
-                <ul class="mun-list">
-                    <li>
-                        <span>DJISMUN IX — Jeddah, KSA</span>
-                        <span class="mun-award">Best Judge · 2023</span>
-                    </li>
-                    <li>
-                        <span>IECAP MUN 8th Conference</span>
-                        <span class="mun-award">Best Delegate · 2023</span>
-                    </li>
-                    <li>
-                        <span>IECMUN'22</span>
-                        <span class="mun-award">2022</span>
-                    </li>
-                </ul>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">Model United Nations</div>
+                    <div class="entry-date">2022 – present</div>
+                </div>
+                <div class="entry-body">
+                    <p style="margin-bottom: 8px;">Active participant in MUN conferences across different schools and countries:</p>
+                    <ul class="mun-list">
+                        <li>
+                            <span>DJISMUN IX — Jeddah, KSA</span>
+                            <span class="mun-award">Best Judge · 2023</span>
+                        </li>
+                        <li>
+                            <span>IECAP MUN 8th Conference</span>
+                            <span class="mun-award">Best Delegate · 2023</span>
+                        </li>
+                        <li>
+                            <span>IECMUN'22</span>
+                            <span class="mun-award">2022</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-    </section>
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">School Music Band — Vocalist & Performer</div>
+                    <div class="entry-date">2018–2021 · 2023–present</div>
+                </div>
+                <div class="entry-body">
+                    <p>Lead vocalist in concerts and performances, including two solo stage appearances and a feature in a "Heal the World" tribute school music video.</p>
+                </div>
+            </div>
 
-    <footer>
-        <span>Amman, Jordan</span>
-        <span>Last updated March 2026</span>
-    </footer>
+        </section>
+
+        <section id="writing">
+            <h2>creative projects</h2>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <div class="entry-title">Aftertaste</div>
+                    <div class="entry-date">2024 – present</div>
+                </div>
+                <div class="entry-sub">Substack newsletter</div>
+                <div class="entry-body">
+                    <p>Original essays on life, identity, and storytelling — blending personal reflection with cultural analysis. From coming-of-age experiences and film critiques to philosophical musings.</p>
+                </div>
+                <p style="margin-top: 18px; font-size: 0.82rem; color: #b09878; font-style: italic; letter-spacing: 0.04em;">some pieces —</p>
+                <div class="posts-grid" id="substack-posts" style="margin-top: 10px;">
+                    <p class="posts-loading">Loading posts…</p>
+                </div>
+            </div>
+
+        </section>
+
+        <footer>
+            <span>Amman, Jordan</span>
+            <span>Last updated March 2026</span>
+        </footer>
+
+    </div>
+
+    <script>
+        const RSS_FEED = 'https://createdbysalma.substack.com/feed';
+        // Use two fallback APIs in case one is rate-limited
+        const APIS = [
+            'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS_FEED),
+            'https://feedparser.vercel.app/api?url=' + encodeURIComponent(RSS_FEED)
+        ];
+
+        function formatDate(str) {
+            const d = new Date(str);
+            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function stripHtml(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+        }
+
+        function renderPosts(items) {
+            const container = document.getElementById('substack-posts');
+            if (!items || items.length === 0) {
+                container.innerHTML = '<p class="posts-error">No posts found. <a href="https://createdbysalma.substack.com" target="_blank" rel="noopener">Visit Substack →</a></p>';
+                return;
+            }
+            container.innerHTML = items.map(post => {
+                const title   = post.title || '';
+                const link    = post.link || post.url || '#';
+                const raw     = post.description || post.content || post.summary || '';
+                const excerpt = stripHtml(raw).slice(0, 160).trim();
+                const date    = post.pubDate || post.published || '';
+                // Cover image: prefer enclosure (Substack sets this to the cover), fall back to thumbnail
+                const thumb   = post.enclosure?.link || (post.enclosure?.url) || post.thumbnail || '';
+                const imgHtml = thumb ? `<img class="post-thumb" src="${thumb}" alt="" loading="lazy">` : '';
+                return `
+                    <a class="post-card" href="${link}" target="_blank" rel="noopener">
+                        ${imgHtml}
+                        <div class="post-text">
+                            <div class="post-title">${title}</div>
+                            ${excerpt ? `<div class="post-excerpt">${excerpt}…</div>` : ''}
+                            ${date ? `<div class="post-date">${formatDate(date)}</div>` : ''}
+                        </div>
+                    </a>`;
+            }).join('');
+        }
+
+        // Try rss2json first, fall back to direct RSS parse via CORS proxy
+        fetch(APIS[0])
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'ok' && data.items && data.items.length > 0) {
+                    renderPosts(data.items);
+                } else {
+                    throw new Error('empty');
+                }
+            })
+            .catch(() => {
+                // Fallback: fetch raw RSS via corsproxy.io and parse it
+                fetch('https://corsproxy.io/?' + encodeURIComponent(RSS_FEED))
+                    .then(r => r.text())
+                    .then(xml => {
+                        const doc = new DOMParser().parseFromString(xml, 'text/xml');
+                        const items = [...doc.querySelectorAll('item')].map(item => {
+                            const enc = item.querySelector('enclosure');
+                            return {
+                                title:       item.querySelector('title')?.textContent || '',
+                                link:        item.querySelector('link')?.textContent || '',
+                                description: item.querySelector('description')?.textContent || '',
+                                pubDate:     item.querySelector('pubDate')?.textContent || '',
+                                enclosure:   enc ? { link: enc.getAttribute('url') || '' } : null
+                            };
+                        });
+                        renderPosts(items);
+                    })
+                    .catch(() => {
+                        document.getElementById('substack-posts').innerHTML =
+                            '<p class="posts-error">Couldn\'t load posts. <a href="https://createdbysalma.substack.com" target="_blank" rel="noopener">Read on Substack →</a></p>';
+                    });
+            });
+    </script>
 
 </body>
 </html>
