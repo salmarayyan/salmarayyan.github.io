@@ -112,6 +112,27 @@
             display: flex;
             gap: 24px;
             align-items: center;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.18s, transform 0.18s;
+        }
+
+        .hero-feature:hover {
+            background: #f8f3fd;
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .entry-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: background 0.18s;
+            border-radius: 10px;
+        }
+
+        .entry-link:hover {
+            background: rgba(255,255,255,0.45);
         }
 
         .hero-feature-label {
@@ -167,8 +188,9 @@
                 gap: 32px;
             }
             .hero-title {
-                font-size: clamp(1.9rem, 9vw, 2.6rem);
+                font-size: clamp(2.3rem, 11vw, 3.1rem);
                 word-break: break-word;
+                margin-bottom: 16px;
             }
             .hero-bio {
                 text-align: left;
@@ -520,7 +542,7 @@
                     <a href="https://createdbysalma.substack.com" target="_blank" rel="noopener">Substack</a>
                 </div>
             </div>
-            <div class="hero-feature">
+            <a href="muse.html" class="hero-feature">
                 <img src="muse-logo.png" alt="MUSE" class="hero-feature-logo">
                 <div class="hero-feature-text">
                     <div class="hero-feature-label">Featured Project · 2026 – present</div>
@@ -529,7 +551,7 @@
                     <p class="hero-feature-desc">Built and developed an iOS music guessing game with live voice recognition, featuring 3 game modes including live Spotify/Apple Music playlist scraping.</p>
                     <p class="hero-feature-desc">Developed simultaneous audio playback and speech capture via AVFoundation and SFSpeechRecognizer, along with an adaptive scoring engine that evolves based on player taste and performance.</p>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="scroll-hint">Scroll</div>
     </div>
@@ -558,6 +580,7 @@
 
             <div class="entry-grid-featured">
 
+            <a href="muse.html" class="entry-link">
             <div class="entry">
                 <img src="muse-logo.png" alt="MUSE" class="entry-logo">
                 <div class="entry-header">
@@ -570,6 +593,7 @@
                     <p>Developed simultaneous audio playback and speech capture via AVFoundation and SFSpeechRecognizer, along with an adaptive scoring engine that evolves based on player taste and performance.</p>
                 </div>
             </div>
+            </a>
 
             <div class="entry">
                 <img src="ammanreads-logo.png" alt="Ammanreads" class="entry-logo">
@@ -681,7 +705,7 @@
 
         <footer>
             <span>Amman, Jordan</span>
-            <span>Last updated April 2026</span>
+            <span>Last updated May 2026</span>
         </footer>
 
     </div>
