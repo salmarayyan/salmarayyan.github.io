@@ -108,7 +108,7 @@
             background: rgba(255,255,255,0.4);
             border-radius: 14px;
             padding: 36px;
-            border: 1px solid rgba(123,179,188,0.2);
+            border: none;
             display: flex;
             gap: 24px;
             align-items: center;
@@ -118,8 +118,7 @@
         }
 
         .hero-feature:hover {
-            background: #f8f3fd;
-            border-color: transparent;
+            background: #ebe2e9;
             transform: translateY(-2px);
         }
 
@@ -179,6 +178,33 @@
 
         .hero-feature-desc:last-child {
             margin-bottom: 0;
+        }
+
+        .hero-feature-cta {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #2d7080;
+            letter-spacing: 0.01em;
+        }
+
+        .hero-feature:hover .hero-feature-cta {
+            color: #1d5a64;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .entry-cta {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: #2d7080;
+        }
+
+        .entry-link:hover .entry-cta {
+            color: #1d5a64;
         }
 
         @media (max-width: 600px) {
@@ -286,11 +312,16 @@
             border-radius: 10px;
             padding: 22px 24px;
             margin-bottom: 0;
+            transition: background 0.18s;
+        }
+
+        .entry-grid-featured .entry-link:hover .entry {
+            background: rgba(255,255,255,0.5);
         }
 
         .entry-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 16px;
         }
 
@@ -300,6 +331,11 @@
             padding: 22px 24px;
             margin-bottom: 0;
         }
+
+        .entry-grid .entry.entry-wide {
+            grid-column: 1 / -1;
+        }
+
 
         .entry-grid .entry.entry-wide {
             grid-column: 1 / -1;
@@ -535,7 +571,7 @@
         <div class="hero-inner">
             <div class="hero-left">
                 <div class="hero-title">Salma Rayyan<span class="dot">.</span></div>
-                <p class="hero-bio">High school senior based in Amman, Jordan. Interested in AI, creative tech, writing, and building things.</p>
+                <p class="hero-bio">High school senior based in Amman, Jordan. Interested in AI, creative tech, and building things. Founder and developer of Appsbysalma.</p>
                 <div class="hero-links">
                     <a href="mailto:salmarayyann@gmail.com">Email</a>
                     <a href="https://github.com/salmarayyan">GitHub</a>
@@ -545,11 +581,12 @@
             <a href="muse.html" class="hero-feature">
                 <img src="muse-logo.png" alt="MUSE" class="hero-feature-logo">
                 <div class="hero-feature-text">
-                    <div class="hero-feature-label">Featured Project · 2026 – present</div>
+                    <div class="hero-feature-label">Featured Project · Appsbysalma</div>
                     <div class="hero-feature-title">MUSE</div>
                     <div class="hero-feature-sub">Founder & Developer</div>
-                    <p class="hero-feature-desc">Built and developed an iOS music guessing game with live voice recognition, featuring 3 game modes including live Spotify/Apple Music playlist scraping.</p>
+                    <p class="hero-feature-desc">An iOS music guessing game with live voice recognition, featuring 3 game modes including live Spotify/Apple Music playlist scraping.</p>
                     <p class="hero-feature-desc">Developed simultaneous audio playback and speech capture via AVFoundation and SFSpeechRecognizer, along with an adaptive scoring engine that evolves based on player taste and performance.</p>
+                    <span class="hero-feature-cta">View project →</span>
                 </div>
             </a>
         </div>
@@ -584,12 +621,12 @@
             <div class="entry">
                 <img src="muse-logo.png" alt="MUSE" class="entry-logo">
                 <div class="entry-header">
-                    <div class="entry-title">MUSE</div>
-                    <div class="entry-date">2026 – present</div>
+                    <div class="entry-title">Appsbysalma</div>
+                    <div class="entry-date">2025 – present</div>
                 </div>
                 <div class="entry-sub">Founder & Developer</div>
                 <div class="entry-body">
-                    <p>Built and developed an iOS music guessing game with live voice recognition, featuring 3 game modes including live Spotify/Apple Music playlist scraping.</p>
+                    <p>Most recent project includes MUSE, an iOS music guessing game with live voice recognition, featuring 3 game modes including live Spotify/Apple Music playlist scraping.</p>
                     <p>Developed simultaneous audio playback and speech capture via AVFoundation and SFSpeechRecognizer, along with an adaptive scoring engine that evolves based on player taste and performance.</p>
                 </div>
             </div>
@@ -618,7 +655,7 @@
                     <div class="entry-date">2019 – present</div>
                 </div>
                 <div class="entry-body">
-                    <p>Represented Jordan in official World Cube Association (WCA) competitions, achieving top 200 national rankings across multiple events, including a personal best of 35 seconds in the 3×3 Rubik's Cube.</p>
+                    <p>Represented Jordan in several official World Cube Association (WCA) competitions, achieving top 200 national rankings across multiple events, including a personal best of 35 seconds in the 3×3 Rubik's Cube.</p>
                 </div>
             </div>
 
@@ -655,13 +692,12 @@
                 </div>
             </div>
 
-            <div class="entry">
+            <div class="entry entry-wide">
                 <div class="entry-header">
                     <div class="entry-title">Model United Nations</div>
                     <div class="entry-date">2022 – present</div>
                 </div>
                 <div class="entry-body">
-                    <p style="margin-bottom: 6px;">Active participant across schools and countries:</p>
                     <ul class="mun-list">
                         <li>
                             <span>DJISMUN IX — Jeddah, KSA</span>
