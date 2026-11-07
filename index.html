@@ -123,6 +123,9 @@
             transform: translateY(-2px);
         }
 
+        .feature-card { margin-bottom: 18px; }
+        .feature-card:last-child { margin-bottom: 0; }
+
         .entry-link {
             text-decoration: none;
             color: inherit;
@@ -598,16 +601,6 @@
                     <a href="https://github.com/salmarayyan">GitHub</a>
                 </div>
             </div>
-            <a href="/rolodex/" class="hero-feature">
-                <img src="rolodex/icon.png" alt="Rolodex" class="hero-feature-logo">
-                <div class="hero-feature-text">
-                    <div class="hero-feature-label">Featured Project · Appsbysalma</div>
-                    <div class="hero-feature-title">Rolodex</div>
-                    <div class="hero-feature-sub">Founder & Developer · Coming soon to the App Store</div>
-                    <p class="hero-feature-desc">A film camera for iPhone. Load a film, shoot the whole roll, send it to develop, and see your prints only when they're back, like a real disposable camera.</p>
-                    <span class="hero-feature-cta">View project →</span>
-                </div>
-            </a>
         </div>
         <div class="scroll-hint">Scroll</div>
     </div>
@@ -615,51 +608,31 @@
     <!-- ── Content ── -->
     <div class="content">
 
-        <section id="experience">
-            <h2>Experience</h2>
+        <section id="projects">
+            <h2>Projects</h2>
 
-            <div class="entry">
-                <div class="entry-header">
-                    <div class="entry-title">Appsbysalma</div>
-                    <div class="entry-date">2025 – present</div>
+            <a href="/rolodex/" class="hero-feature feature-card">
+                <img src="rolodex/icon.png" alt="Rolodex" class="hero-feature-logo">
+                <div class="hero-feature-text">
+                    <div class="hero-feature-label">Appsbysalma · Founder & Developer</div>
+                    <div class="hero-feature-title">Rolodex</div>
+                    <div class="hero-feature-sub">Film camera for iPhone</div>
+                    <p class="hero-feature-desc">A film camera for iPhone. Load a film, shoot the whole roll, send it to develop, and see your prints only when they're back, like a real disposable camera.</p>
+                    <span class="hero-feature-cta">View project →</span>
                 </div>
-                <div class="entry-sub">Founder & Developer</div>
-            </div>
-
-            <div class="entry-grid-featured">
-
-            <a href="/rolodex/" class="entry-link">
-            <div class="entry">
-                <img src="rolodex/icon.png" alt="Rolodex" class="entry-logo">
-                <div class="entry-header">
-                    <div class="entry-title">Rolodex</div>
-                    <div class="entry-date">2026</div>
-                </div>
-                <div class="entry-sub">Film camera for iPhone · Coming soon</div>
-                <div class="entry-body">
-                    <p>A disposable-camera experience for iPhone. Load a film, shoot the whole roll, send it to develop, and see your prints only when they're back.</p>
-                    <span class="entry-cta">View project →</span>
-                </div>
-            </div>
             </a>
 
-            <a href="muse.html" class="entry-link">
-            <div class="entry">
-                <img src="muse-logo.png" alt="MUSE" class="entry-logo">
-                <div class="entry-header">
-                    <div class="entry-title">MUSE</div>
-                    <div class="entry-date">2025</div>
+            <a href="muse.html" class="hero-feature feature-card">
+                <img src="muse-logo.png" alt="MUSE" class="hero-feature-logo">
+                <div class="hero-feature-text">
+                    <div class="hero-feature-label">Appsbysalma · Founder & Developer</div>
+                    <div class="hero-feature-title">MUSE</div>
+                    <div class="hero-feature-sub">Music guessing game for iOS</div>
+                    <p class="hero-feature-desc">An iOS music guessing game with live voice recognition, featuring 3 game modes including live Spotify/Apple Music playlist scraping.</p>
+                    <p class="hero-feature-desc">Developed simultaneous audio playback and speech capture via AVFoundation and SFSpeechRecognizer, along with an adaptive scoring engine that evolves based on player taste and performance.</p>
+                    <span class="hero-feature-cta">View project →</span>
                 </div>
-                <div class="entry-sub">Music guessing game for iOS</div>
-                <div class="entry-body">
-                    <p>An iOS music guessing game with live voice recognition, featuring 3 game modes including live Spotify/Apple Music playlist scraping.</p>
-                    <p>Developed simultaneous audio playback and speech capture via AVFoundation and SFSpeechRecognizer, along with an adaptive scoring engine that evolves based on player taste and performance.</p>
-                    <span class="entry-cta">View project →</span>
-                </div>
-            </div>
             </a>
-
-            </div><!-- /entry-grid-featured -->
 
         </section>
 
