@@ -5,75 +5,373 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rolodex · A film camera for iPhone</title>
 <meta name="description" content="Rolodex is a film camera app for iPhone. Load a roll, shoot it, send it to develop, and see your prints when they're back. No likes, no feed, just film.">
+<meta name="theme-color" content="#F2E8D5">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rolodex">
 <meta property="og:title" content="Rolodex · A film camera for iPhone">
 <meta property="og:description" content="No likes. No feed. Just film.">
-<meta property="og:image" content="https://salmarayyan.com/rolodex/icon.png">
-<link rel="icon" href="/rolodex/icon.png">
+<meta property="og:url" content="https://salmarayyan.com/rolodex/">
+<meta property="og:image" content="https://salmarayyan.com/rolodex/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="514">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rolodex · A film camera for iPhone">
+<meta name="twitter:description" content="No likes. No feed. Just film.">
+<meta name="twitter:image" content="https://salmarayyan.com/rolodex/assets/og.jpg">
+
+<link rel="icon" type="image/png" sizes="32x32" href="/rolodex/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/rolodex/assets/favicon-64.png">
+<link rel="apple-touch-icon" href="/rolodex/assets/apple-touch-icon.png">
+<link rel="preload" href="/rolodex/assets/fonts/RolodexDisplay.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@500;700&family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="/rolodex/assets/rolodex.css">
+
 <style>
-  :root { --paper: #F2E8D5; --ink: #1A1714; --muted: rgba(26, 23, 20, 0.58);
-          --tomato: #E2492F; --marigold: #F5C83A; --sky: #4BA3DB; --violet: #5A3E9E; --leaf: #4FA36A; }
-  body { margin: 0; background: var(--paper); color: var(--ink);
-         font: 16px/1.6 "Courier New", ui-monospace, Menlo, monospace; }
-  main { max-width: 600px; margin: 0 auto; padding: 56px 20px 64px; }
-  .wordmark { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 0 20px; }
-  .tagline { font: 700 28px/1.2 Georgia, "Times New Roman", serif; margin: 0 0 12px; }
-  .lede { margin: 0 0 36px; }
-  .cta { display: flex; align-items: center; gap: 16px; margin: 0 0 44px; }
-  .cta img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
-  .cta .soon { color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
-  .cta .name { font: 700 18px/1.2 Georgia, serif; margin: 0 0 2px; }
-  h2 { color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; margin: 28px 0 4px; }
-  p { margin: 0; }
-  ol { margin: 0; padding-left: 1.4em; }
-  li { margin: 0 0 4px; }
-  .films { list-style: none; padding: 0; margin: 6px 0 0; }
-  .films li { display: flex; align-items: baseline; gap: 10px; margin: 0 0 6px; }
-  .swatch { width: 12px; height: 12px; border-radius: 50%; flex: none; position: relative; top: 1px; }
-  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid rgba(26, 23, 20, 0.15);
-           color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
-  footer a { margin-right: 18px; }
-  a { color: inherit; }
+  /* ---------- Hero: wordmark on cream over the zebra waves ---------- */
+  .hero { position: relative; overflow: hidden; padding: 36px 0 44px; }
+  .hero .zebra { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .inner { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; padding-bottom: 36px; }
+  .hero .inner > * { max-width: 100%; }
+  /* Clear space around the wordmark: half its height on every side. */
+  .hero .logo-plate {
+    width: min(100%, 560px);
+    background: var(--paper); border: var(--border) solid var(--ink); border-radius: 18px;
+    box-shadow: var(--shadow);
+    /* Clear space of half the wordmark's height on every side (wordmark is 3.5:1). */
+    padding: 10.5%;
+    margin-top: 44px;
+  }
+  .hero .logo-plate img { width: 100%; height: auto; }
+  .hero .tagline {
+    margin: 30px 0 0; padding: 8px 20px; display: inline-block;
+    background: var(--mustard); border: var(--border) solid var(--ink); border-radius: 12px;
+    box-shadow: var(--shadow); font-family: var(--display); font-size: clamp(24px, 6vw, 40px); line-height: 1.1;
+    max-width: 100%; transform: rotate(-2deg);
+  }
+  .hero .soon { margin-top: 26px; transform: rotate(2.5deg); }
+  [hidden] { display: none !important; }
+  .hero .lede {
+    margin: 30px 0 0; max-width: 460px; padding: 14px 18px;
+    background: var(--paper); border: 2px solid var(--ink); border-radius: 10px; box-shadow: var(--shadow-sm);
+    font-size: 17px;
+  }
+  /* App Store badge: hidden until the app is live. Remove the `hidden` attribute to show it. */
+  #appstore { margin-top: 22px; background: var(--ink); color: var(--paper); border-color: var(--ink); box-shadow: 4px 5px 0 var(--tomato); }
+  #appstore svg { width: 20px; height: 20px; fill: currentColor; }
+
+  /* Date stamp, burnt into the corner like a disposable camera. */
+  .datestamp {
+    position: absolute; right: 14px; bottom: 12px; display: flex; gap: 10px; align-items: flex-end;
+    color: var(--tomato); opacity: .92; pointer-events: none;
+  }
+  .seg { display: grid; grid-template-columns: 4px 12px 4px; grid-template-rows: 4px 10px 4px 10px 4px; width: 20px; height: 32px; gap: 0; }
+  .seg i { display: block; background: currentColor; opacity: .14; border-radius: 1px; }
+  .seg i.on { opacity: 1; }
+  .seg .a { grid-area: 1/2/2/3; } .seg .b { grid-area: 2/3/3/4; } .seg .c { grid-area: 4/3/5/4; }
+  .seg .d { grid-area: 5/2/6/3; } .seg .e { grid-area: 4/1/5/2; } .seg .f { grid-area: 2/1/3/2; } .seg .g { grid-area: 3/2/4/3; }
+  .seg.tick { width: 6px; } .seg.tick i { grid-area: 1/1/3/4; opacity: 1; width: 4px; height: 8px; }
+  .datestamp .gap { width: 2px; }
+
+  section.block { padding: 44px 0 0; }
+  .eyebrow { display: inline-block; margin-bottom: 14px; }
+
+  /* ---------- The lab envelope ---------- */
+  .lab { display: grid; justify-items: center; }
+  .envelope-stage { position: relative; width: min(100%, 340px); padding: 180px 0 28px; }
+  .envelope {
+    position: relative; width: 100%; aspect-ratio: 1.25; border: 0; padding: 0; cursor: pointer;
+    background: var(--kraft); border: var(--border) solid var(--ink); border-radius: 12px; box-shadow: var(--shadow);
+    display: grid; align-content: end; justify-items: center; gap: 8px; padding-bottom: 22px;
+    transition: transform .5s cubic-bezier(.3,1.5,.5,1);
+    text-align: center;
+  }
+  .envelope .mark { height: 36px; width: auto; }
+  .envelope .lab-line { font: 500 13px/1 var(--label); color: rgba(26,23,20,.72); }
+  .envelope .stripes { width: calc(100% - 48px); }
+  .envelope .flap {
+    position: absolute; left: -3px; right: -3px; top: -3px; height: 48%;
+    transform-origin: top center; transition: transform .6s cubic-bezier(.3,1.3,.5,1);
+    pointer-events: none;
+  }
+  .envelope .flap svg { width: 100%; height: 100%; }
+  .envelope .tag { position: absolute; left: 10px; top: 36%; transform: rotate(-6deg); transition: opacity .3s; }
+  .envelope-stage.open .envelope { transform: scale(1.04) translateY(26px); }
+  .envelope-stage.open .flap { transform: perspective(700px) rotateX(178deg); }
+  .envelope-stage.open .tag { opacity: 0; }
+
+  .prints { position: absolute; left: 50%; top: 180px; width: 0; height: 0; pointer-events: none; z-index: 0; }
+  .envelope { z-index: 1; }
+  .print {
+    position: absolute; left: -70px; top: -10px; width: 140px; margin: 0; padding: 8px 8px 24px;
+    background: var(--paper); border: 2px solid var(--ink); border-radius: 6px; box-shadow: var(--shadow-sm);
+    transform: translateY(40px) rotate(0deg) scale(.9); opacity: 0;
+    transition: transform .7s cubic-bezier(.25,1.6,.45,1), opacity .25s;
+  }
+  .print img { width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; border: 2px solid var(--ink); }
+  .envelope-stage.open .print { opacity: 1; }
+  .envelope-stage.open .print:nth-child(1) { transform: translate(-115px, -135px) rotate(-14deg); transition-delay: .35s; }
+  .envelope-stage.open .print:nth-child(2) { transform: translate(0px, -165px) rotate(2deg); transition-delay: .45s; }
+  .envelope-stage.open .print:nth-child(3) { transform: translate(115px, -130px) rotate(13deg); transition-delay: .55s; }
+  .tear { margin-top: 22px; transform: rotate(2deg); cursor: pointer; }
+  .envelope-stage.open + .tear { opacity: 0; pointer-events: none; }
+
+  /* ---------- Pick a film ---------- */
+  .films { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px; }
+  @media (min-width: 700px) { .films { grid-template-columns: repeat(5, 1fr); gap: 12px; } .film { padding: 14px 10px 12px; } .film .name { font-size: 17px; } .film .spec { font-size: 12.5px; white-space: nowrap; } }
+  .film {
+    position: relative; text-align: left; padding: 16px 14px 14px; cursor: pointer;
+    transition: transform .15s cubic-bezier(.3,1.6,.6,1), background .2s;
+  }
+  .film:active { transform: translate(2px, 3px); }
+  .film.loaded { background: var(--loaded, var(--paper-shade)); }
+  .film .name { display: block; font: 700 19px/1.1 var(--label); margin-top: 14px; }
+  .film .spec { display: block; font: 500 14px/1.2 var(--label); color: var(--muted); margin-top: 4px; }
+  .film .loaded-tag { position: absolute; right: -8px; top: -12px; transform: rotate(8deg); opacity: 0; transition: opacity .2s, transform .3s cubic-bezier(.3,1.6,.6,1); font-family: var(--type); font-size: 14px; padding: 3px 9px; }
+  .film.loaded .loaded-tag { opacity: 1; transform: rotate(8deg) scale(1.05); }
+
+  /* The 35mm canister on its side, wrapped in the stock's stripes. */
+  .can { display: flex; align-items: center; height: 46px; }
+  .can .spool { width: 7px; height: 14px; background: var(--ink); border-radius: 2px; }
+  .can .cap { width: 10px; height: 46px; border-radius: 6px; background: #3B4A4D; border: 2px solid var(--ink); box-shadow: 2px 3px 0 var(--ink); margin-left: -2px; z-index: 1; }
+  .can .body {
+    flex: 1; height: 36px; position: relative; margin: 0 -2px; border-top: 2.5px solid var(--ink); border-bottom: 2.5px solid var(--ink);
+    box-shadow: 2px 4px 0 var(--ink); overflow: hidden;
+    background: repeating-linear-gradient(118deg, var(--s1) 0 11px, var(--s2) 11px 22px, var(--s3) 22px 33px);
+  }
+  .can .body::before { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 4px; background: rgba(242,232,213,.35); }
+  .can .body::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 9px; background: rgba(26,23,20,.28); }
+  .can .iso {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    background: var(--paper); border: 1.5px solid var(--ink); border-radius: 4px; padding: 0 6px; font: 700 14px/1.35 var(--label);
+  }
+  .film-desc {
+    margin-top: 18px; display: flex; align-items: center; gap: 12px; min-height: 36px;
+    font: 400 17px/1.4 var(--type);
+  }
+  .film-desc .chip { width: 14px; height: 22px; border: 2px solid var(--ink); border-radius: 3px; flex: none; background: repeating-linear-gradient(118deg, var(--s1) 0 4px, var(--s2) 4px 8px, var(--s3) 8px 12px); }
+  .film-desc.empty { color: var(--muted); }
+
+  /* ---------- Lab ticket ---------- */
+  .ticket {
+    position: relative; margin: 8px auto 0; max-width: 420px; background: var(--paper);
+    border-left: var(--border) solid var(--ink); border-right: var(--border) solid var(--ink);
+    padding: 26px 24px 30px; font-family: var(--type); box-shadow: var(--shadow);
+    transform: rotate(-1deg);
+  }
+  .ticket::before, .ticket::after {
+    content: ""; position: absolute; left: -3px; right: -3px; height: 12px;
+    background: radial-gradient(circle at 6px 6px, transparent 5.5px, var(--ink) 6px, var(--ink) 7px, transparent 7.5px) left/12px 12px repeat-x;
+  }
+  .ticket::before { top: -9px; }
+  .ticket::after { bottom: -9px; transform: rotate(180deg); }
+  .ticket .head { text-align: center; border-bottom: 2px dashed var(--ink); padding-bottom: 12px; margin-bottom: 14px; }
+  .ticket .head strong { display: block; font: 900 22px/1 var(--display); }
+  .ticket .head span { font-size: 13px; color: var(--muted); }
+  .ticket ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .ticket li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; align-items: start; font-size: 16px; line-height: 1.45; }
+  .ticket li b { font: 900 28px/1 var(--display); color: var(--tomato); }
+  .ticket .foot { border-top: 2px dashed var(--ink); margin-top: 16px; padding-top: 12px; font-size: 13px; color: var(--muted); text-align: center; letter-spacing: .08em; }
+
+  /* ---------- Index card ---------- */
+  .index-card {
+    position: relative; margin: 8px auto 0; max-width: 520px; padding: 46px 24px 24px;
+    background: var(--paper) repeating-linear-gradient(to bottom, transparent 0 29px, rgba(75,163,219,.55) 29px 31px) 0 14px;
+    transform: rotate(1deg);
+  }
+  .index-card::before { content: ""; position: absolute; left: 0; right: 0; top: 30px; height: 3px; background: var(--rose); opacity: .8; }
+  .index-card .pin { position: absolute; left: 50%; top: -14px; transform: translateX(-50%) rotate(-4deg); }
+  .index-card p { font: 600 clamp(21px, 5.4vw, 26px)/31px var(--hand); }
+
+  /* ---------- Coming soon strip ---------- */
+  .appcta { display: grid; justify-items: center; text-align: center; gap: 16px; padding: 52px 0 0; }
+  .appcta .icon { width: 96px; height: 96px; border-radius: 22px; border: var(--border) solid var(--ink); box-shadow: var(--shadow); }
+  .appcta h2 { margin: 0; }
 </style>
 </head>
 <body>
-<main>
-  <img class="wordmark" src="/rolodex/wordmark.png" alt="Rolodex">
-  <p class="tagline">No likes. No feed. Just film.</p>
-  <p class="lede">Rolodex is a film camera for your iPhone. Load a roll, shoot it, and send it to develop. Like a real disposable camera, you don't see your photos until the prints are back.</p>
+<div class="grain" aria-hidden="true"></div>
 
-  <div class="cta">
-    <img src="/rolodex/icon.png" alt="">
-    <div>
-      <p class="name">Rolodex for iPhone</p>
-      <p class="soon">Coming soon to the App Store</p>
+<header class="hero">
+  <svg class="zebra" id="zebra" aria-hidden="true" preserveAspectRatio="none"></svg>
+  <div class="wrap inner">
+    <div class="logo-plate">
+      <img src="/rolodex/assets/wordmark-3d.svg" alt="Rolodex" width="682" height="195">
     </div>
+    <p class="tagline">No likes. No feed. Just film.</p>
+    <p class="sticker soon">Coming soon to the App Store</p>
+    <p class="lede">Rolodex is a film camera for your iPhone. Load a roll, shoot it, and send it to develop. Like a real disposable camera, you don't see your photos until the prints are back.</p>
+    <!-- App Store badge. Hidden until the app is live: remove the `hidden` attribute. -->
+    <a id="appstore" class="btn" href="https://apps.apple.com/app/id6827994145" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8-1.7 0-3.2 1-4.1 2.5-1.8 3-.5 7.6 1.3 10.1.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1.1-3-4.1zM14 5.2c.7-.8 1.2-2 1-3.2-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.5 2.9-1.3z"/></svg>
+      Download on the App Store
+    </a>
   </div>
+  <div class="datestamp" id="datestamp" aria-label="Date stamp" role="img"></div>
+</header>
 
-  <h2>How it works</h2>
-  <ol>
-    <li>Pick a film and load the roll. Most rolls are 24 shots, and there's no swapping halfway.</li>
-    <li>Shoot the whole roll. No previews, no retakes.</li>
-    <li>Send it to develop. Your prints come back to the shelf shortly after.</li>
-  </ol>
+<main class="wrap">
 
-  <h2>Five films</h2>
-  <ul class="films">
-    <li><span class="swatch" style="background: var(--marigold)"></span>Sunny</li>
-    <li><span class="swatch" style="background: var(--sky)"></span>Poolside</li>
-    <li><span class="swatch" style="background: var(--violet)"></span>Afterhours</li>
-    <li><span class="swatch" style="background: var(--ink)"></span>Newsprint, in black and white</li>
-    <li><span class="swatch" style="background: var(--leaf)"></span>Evergreen</li>
-  </ul>
-  <p style="margin-top: 8px">Each has its own colours, grain and number of exposures.</p>
+  <section class="block lab" aria-labelledby="lab-title">
+    <span class="sticker mustard eyebrow" style="font-family:var(--display);font-size:24px;padding:6px 16px">roll's back!</span>
+    <h2 id="lab-title" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">The envelope</h2>
+    <div class="envelope-stage" id="stage">
+      <div class="prints" aria-hidden="true">
+        <figure class="print"><img src="/rolodex/prints/1.jpg" alt="" width="600" height="800" loading="lazy"></figure>
+        <figure class="print"><img src="/rolodex/prints/2.jpg" alt="" width="600" height="800" loading="lazy"></figure>
+        <figure class="print"><img src="/rolodex/prints/3.jpg" alt="" width="600" height="800" loading="lazy"></figure>
+      </div>
+      <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-label="Open the envelope to see three prints">
+        <img class="mark" src="/rolodex/assets/wordmark-3d.svg" alt="" width="682" height="195">
+        <span class="lab-line">photo lab · prints enclosed</span>
+        <span class="stripes" aria-hidden="true"><span style="background:var(--rose)"></span><span style="background:var(--plum)"></span><span style="background:var(--mustard)"></span><span style="background:var(--tomato)"></span><span style="background:var(--sky)"></span><span style="background:var(--leaf)"></span><span style="background:var(--violet)"></span><span style="background:var(--tangerine)"></span><span style="background:var(--slate)"></span></span>
+        <span class="flap" aria-hidden="true">
+          <svg viewBox="0 0 100 48" preserveAspectRatio="none"><path d="M1.5 1.5 H98.5 Q70 44 50 46.5 Q30 44 1.5 1.5 Z" fill="var(--kraft-shade)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+        </span>
+        <span class="sticker rose tag" aria-hidden="true">roll 01</span>
+      </button>
+    </div>
+    <button class="sticker marker tear" id="tear" type="button">tap to tear it open</button>
+  </section>
 
-  <h2>Private by design</h2>
-  <p>Your photos are stored only on your iPhone and are never uploaded. Rolodex has no account, no ads and no tracking.</p>
+  <section class="block" aria-labelledby="films-title">
+    <h2 id="films-title">Pick a film</h2>
+    <p style="color:var(--muted);margin-bottom:18px">Five looks. You choose one when you load a roll and can't swap halfway.</p>
+    <div class="films" role="group" aria-label="Film stocks">
+      <button class="card film" type="button" data-desc="warm and golden, honey light. the classic." style="--s1:var(--tomato);--s2:var(--tangerine);--s3:var(--mustard);--loaded:#F7DFA0" aria-pressed="false">
+        <span class="can" aria-hidden="true"><i class="spool"></i><i class="cap"></i><span class="body"><span class="iso">400</span></span><i class="cap"></i></span>
+        <span class="name">Sunny</span><span class="spec">400 · 24 exp</span>
+        <span class="sticker loaded-tag" aria-hidden="true">loaded</span>
+      </button>
+      <button class="card film" type="button" data-desc="cool blues and minty greens. smells like chlorine." style="--s1:var(--sky);--s2:var(--leaf);--s3:var(--mustard);--loaded:#CFE5EE" aria-pressed="false">
+        <span class="can" aria-hidden="true"><i class="spool"></i><i class="cap"></i><span class="body"><span class="iso">200</span></span><i class="cap"></i></span>
+        <span class="name">Poolside</span><span class="spec">200 · 24 exp</span>
+        <span class="sticker loaded-tag" aria-hidden="true">loaded</span>
+      </button>
+      <button class="card film" type="button" data-desc="lavender skies, golden light. the city after work." style="--s1:var(--violet);--s2:var(--sky);--s3:var(--tangerine);--loaded:#D9CDE6" aria-pressed="false">
+        <span class="can" aria-hidden="true"><i class="spool"></i><i class="cap"></i><span class="body"><span class="iso">400</span></span><i class="cap"></i></span>
+        <span class="name">Afterhours</span><span class="spec">400 · 36 exp</span>
+        <span class="sticker loaded-tag" aria-hidden="true">loaded</span>
+      </button>
+      <button class="card film" type="button" data-desc="black and white, punchy, like the morning paper." style="--s1:var(--ink);--s2:var(--slate);--s3:var(--paper-shade);--loaded:#D9D2C4" aria-pressed="false">
+        <span class="can" aria-hidden="true"><i class="spool"></i><i class="cap"></i><span class="body"><span class="iso">100</span></span><i class="cap"></i></span>
+        <span class="name">Newsprint</span><span class="spec">100 · 24 exp</span>
+        <span class="sticker loaded-tag" aria-hidden="true">loaded</span>
+      </button>
+      <button class="card film" type="button" data-desc="the classic disposable. deep greens, punchy prints." style="--s1:var(--leaf);--s2:var(--paper);--s3:var(--tomato);--loaded:#CFE3D2" aria-pressed="false">
+        <span class="can" aria-hidden="true"><i class="spool"></i><i class="cap"></i><span class="body"><span class="iso">400</span></span><i class="cap"></i></span>
+        <span class="name">Evergreen</span><span class="spec">400 · 27 exp</span>
+        <span class="sticker loaded-tag" aria-hidden="true">loaded</span>
+      </button>
+    </div>
+    <p class="film-desc empty" id="film-desc" aria-live="polite"><span class="chip" aria-hidden="true" style="--s1:var(--paper-shade);--s2:var(--paper);--s3:var(--paper-shade)"></span><span>tap a film to load it.</span></p>
+  </section>
 
-  <footer>
-    <a href="/rolodex/support">Support</a>
-    <a href="/rolodex/privacy">Privacy</a>
-    <a href="/">salmarayyan.com</a>
-  </footer>
+  <section class="block" aria-labelledby="how-title">
+    <h2 id="how-title">How it works</h2>
+    <div class="ticket">
+      <div class="head"><strong>Rolodex photo lab</strong><span>order ticket · keep this half</span></div>
+      <ol>
+        <li><b>1</b><span>Pick a film and load the roll. Most rolls are 24 shots, and there's no swapping halfway.</span></li>
+        <li><b>2</b><span>Shoot the whole roll. No previews, no retakes.</span></li>
+        <li><b>3</b><span>Send it to develop. Your prints come back to the shelf shortly after.</span></li>
+      </ol>
+      <div class="foot">THANK YOU · COME AGAIN</div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="private-title">
+    <h2 id="private-title">Private by design</h2>
+    <div class="card index-card">
+      <span class="sticker pin" aria-hidden="true">no cloud</span>
+      <p>Your photos are stored only on your iPhone and are never uploaded. Rolodex has no account, no ads and no tracking.</p>
+    </div>
+  </section>
+
+  <section class="appcta" aria-labelledby="cta-title">
+    <img class="icon" src="/rolodex/icon.png" alt="Rolodex app icon" width="512" height="512" loading="lazy">
+    <h2 id="cta-title">Rolodex for iPhone</h2>
+    <p class="sticker mustard">Coming soon to the App Store</p>
+  </section>
+
 </main>
+
+<footer>
+  <div class="rainbow" aria-hidden="true">
+    <span style="background:#E0475B"></span><span style="background:#5B3A4E"></span><span style="background:#F5C83A"></span><span style="background:#E2492F"></span><span style="background:#4BA3DB"></span><span style="background:#4FA36A"></span><span style="background:#5A3E9E"></span><span style="background:#EE7E2F"></span><span style="background:#4F6467"></span>
+  </div>
+  <div class="wrap">
+    <nav aria-label="Footer">
+      <a href="/rolodex/support">Support</a>
+      <a href="/rolodex/privacy">Privacy</a>
+      <a href="/">salmarayyan.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Zebra waves, drawn once like the app's "roll's back!" screen.
+  function rand(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+  function zebra() {
+    var svg = document.getElementById('zebra'), hero = svg.parentNode;
+    var W = hero.clientWidth, H = hero.clientHeight, r = rand(3), d = '';
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    for (var y = -40; y < H + 40;) {
+      var thick = 9 + r() * 11, amp = 10 + r() * 14, freq = 0.012 + r() * 0.01, phase = r() * 6, taper = 0.3 + r() * 0.7;
+      var top = [], bottom = [];
+      for (var x = -10; x <= W + 10; x += 6) {
+        var wave = Math.sin(x * freq + phase) * amp + Math.sin(x * freq * 2.7 + phase) * amp * 0.25;
+        var t = thick * (taper + (1 - taper) * Math.abs(Math.sin(x * freq * 0.7 + phase)));
+        top.push(x + ',' + (y + wave).toFixed(1)); bottom.push(x + ',' + (y + wave + t).toFixed(1));
+      }
+      d += 'M' + top.join('L') + 'L' + bottom.reverse().join('L') + 'Z';
+      y += thick + 16 + r() * 12;
+    }
+    svg.innerHTML = '<path d="' + d + '" fill="#1A1714"/>';
+  }
+  zebra();
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(zebra, 120); });
+
+  // Date stamp in seven-segment digits: MM DD 'YY.
+  var SEG = { '0':'abcdef', '1':'bc', '2':'abdeg', '3':'abcdg', '4':'bcfg', '5':'acdfg', '6':'acdefg', '7':'abc', '8':'abcdefg', '9':'abcdfg' };
+  function digit(ch) {
+    var el = document.createElement('span'); el.className = 'seg';
+    'abcdefg'.split('').forEach(function (s) { var i = document.createElement('i'); i.className = s + (SEG[ch].indexOf(s) >= 0 ? ' on' : ''); el.appendChild(i); });
+    return el;
+  }
+  var now = new Date(), two = function (n) { return (n < 10 ? '0' : '') + n; };
+  var parts = [two(now.getMonth() + 1), two(now.getDate()), two(now.getFullYear() % 100)];
+  var stamp = document.getElementById('datestamp');
+  stamp.setAttribute('aria-label', 'Date stamp ' + parts.join(' '));
+  parts.forEach(function (p, i) {
+    if (i === 2) { var tick = document.createElement('span'); tick.className = 'seg tick'; tick.appendChild(document.createElement('i')); stamp.appendChild(tick); }
+    p.split('').forEach(function (c) { stamp.appendChild(digit(c)); });
+  });
+
+  // The envelope.
+  var stage = document.getElementById('stage'), env = document.getElementById('envelope'), tear = document.getElementById('tear');
+  function toggle() {
+    var open = stage.classList.toggle('open');
+    env.setAttribute('aria-expanded', open);
+    env.setAttribute('aria-label', open ? 'Close the envelope' : 'Open the envelope to see three prints');
+  }
+  env.addEventListener('click', toggle);
+  tear.addEventListener('click', function () { if (!stage.classList.contains('open')) toggle(); env.focus(); });
+
+  // Pick a film.
+  var films = document.querySelectorAll('.film'), desc = document.getElementById('film-desc');
+  films.forEach(function (f) {
+    f.addEventListener('click', function () {
+      films.forEach(function (o) { o.classList.remove('loaded'); o.setAttribute('aria-pressed', 'false'); });
+      f.classList.add('loaded'); f.setAttribute('aria-pressed', 'true');
+      desc.classList.remove('empty');
+      desc.querySelector('.chip').style.cssText = f.style.cssText;
+      desc.querySelector('span:last-child').textContent = f.getAttribute('data-desc');
+    });
+  });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,140 @@
+/* Rolodex website · 1970s print ephemera on cream paper.
+   Matches rolodex/Views/Theme.swift: matte inks, 3px ink borders,
+   hard offset shadows, paper grain, tilted stickers. */
+
+@font-face {
+  font-family: "Rolodex Display";
+  src: url("fonts/RolodexDisplay.ttf") format("truetype");
+  font-weight: 900; font-display: swap;
+}
+@font-face {
+  font-family: "Special Elite";
+  src: url("fonts/SpecialElite-Regular.ttf") format("truetype");
+  font-weight: 400; font-display: swap;
+}
+
+:root {
+  --ink: #1A1714;
+  --paper: #F2E8D5;
+  --paper-shade: #E3D5BA;
+  --tomato: #E2492F;
+  --mustard: #F5C83A;
+  --sky: #4BA3DB;
+  --violet: #5A3E9E;
+  --rose: #E0475B;
+  --plum: #5B3A4E;
+  --leaf: #4FA36A;
+  --tangerine: #EE7E2F;
+  --slate: #4F6467;
+  --chocolate: #3E2418;
+  --leather: #5C2E1F;
+  --amber: #C77A2E;
+  --kraft: #D8A671;
+  --kraft-shade: #C79861;
+  --muted: rgba(26, 23, 20, 0.62);
+
+  --display: "Rolodex Display", Georgia, serif;
+  --label: "Futura", "Jost", "Avenir Next", sans-serif;
+  --type: "Special Elite", "Courier New", monospace;
+  --hand: "Noteworthy", "Bradley Hand", "Caveat", "Segoe Print", cursive;
+
+  --border: 3px;
+  --shadow: 4px 5px 0 var(--ink);
+  --shadow-sm: 2px 2px 0 var(--ink);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.5 var(--label);
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+
+/* Paper grain over everything, like ink on uncoated stock. */
+.grain {
+  position: fixed; inset: 0; z-index: 50; pointer-events: none;
+  opacity: .32; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .16 0 0 0 0 .1 0 0 0 0 .06 0 0 0 -1.4 .9'/></filter><rect width='180' height='180' filter='url(%23g)'/></svg>");
+}
+
+.wrap { width: min(100% - 32px, 680px); margin: 0 auto; }
+
+/* Printed card: flat fill, ink border, hard ink shadow slipped down-right. */
+.card {
+  background: var(--paper);
+  border: var(--border) solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Slapped-on sticker. */
+.sticker {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 7px;
+  box-shadow: var(--shadow-sm);
+  font: 700 15px/1.2 var(--label);
+  letter-spacing: .01em;
+  transform: rotate(-3deg);
+}
+.sticker.marker { font-family: var(--type); font-weight: 400; font-size: 16px; }
+.sticker.mustard { background: var(--mustard); }
+.sticker.rose { background: #EFA3AD; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; margin: 0; letter-spacing: -.01em; }
+h2 { font-size: clamp(30px, 7vw, 40px); margin-bottom: 14px; }
+p { margin: 0; }
+
+/* Flashcard button that presses down onto its own shadow. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 56px; padding: 12px 22px;
+  background: var(--mustard); border: var(--border) solid var(--ink); border-radius: 12px;
+  box-shadow: var(--shadow); font: 700 19px/1 var(--label); text-decoration: none; cursor: pointer;
+  transition: transform .15s cubic-bezier(.3,1.6,.6,1), box-shadow .15s;
+}
+.btn:active { transform: translate(4px, 5px); box-shadow: 0 0 0 var(--ink); }
+
+/* Rainbow stripe band. */
+.stripes {
+  display: flex; height: 14px; border: 2px solid var(--ink); overflow: hidden;
+}
+.stripes span { flex: 1; }
+
+/* Site header used on the sub pages. */
+.topbar { padding: 22px 0 8px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.topbar .home { display: inline-block; padding: 6px 0; }
+.topbar .home img { height: 26px; width: auto; }
+
+/* Footer. */
+footer { margin-top: 64px; }
+footer .rainbow { display: flex; height: 18px; border-top: var(--border) solid var(--ink); border-bottom: var(--border) solid var(--ink); }
+footer .rainbow span { flex: 1; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; padding: 22px 0 36px; font: 700 15px/1 var(--label); }
+footer nav a { text-decoration: none; border-bottom: 2px solid var(--ink); padding-bottom: 2px; }
+footer nav a:hover { color: var(--tomato); border-color: var(--tomato); }
+footer small { display: block; padding-bottom: 28px; color: var(--muted); font-size: 13px; }
+
+/* Sub pages: title block and sections. */
+.page-title { padding: 18px 0 8px; }
+.page-title h1 { font-size: clamp(40px, 10vw, 60px); }
+.page-title .meta { margin-top: 10px; }
+.sections { display: grid; gap: 18px; margin-top: 26px; }
+.sections section { padding: 20px 22px; }
+.sections h2 { font-size: 22px; margin: 0 0 8px; }
+.sections p { font-size: 17px; line-height: 1.55; }
+.sections p + p { margin-top: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
