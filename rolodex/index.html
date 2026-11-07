@@ -63,16 +63,18 @@
 
   /* Date stamp, burnt into the corner like a disposable camera. */
   .datestamp {
-    position: absolute; right: 14px; bottom: 12px; display: flex; gap: 10px; align-items: flex-end;
-    color: var(--tomato); opacity: .92; pointer-events: none;
+    position: absolute; right: 16px; bottom: 14px; display: flex; gap: 7px; align-items: flex-end;
+    padding: 8px 12px 7px; background: var(--paper); border: 2px solid var(--ink); border-radius: 8px;
+    box-shadow: var(--shadow-sm); color: var(--tomato); transform: skewX(-7deg); pointer-events: none;
   }
-  .seg { display: grid; grid-template-columns: 4px 12px 4px; grid-template-rows: 4px 10px 4px 10px 4px; width: 20px; height: 32px; gap: 0; }
-  .seg i { display: block; background: currentColor; opacity: .14; border-radius: 1px; }
+  .seg { display: grid; grid-template-columns: 4px 10px 4px; grid-template-rows: 4px 9px 4px 9px 4px; width: 18px; height: 31px; }
+  .seg i { display: block; background: currentColor; border-radius: 1.5px; opacity: 0; }
   .seg i.on { opacity: 1; }
   .seg .a { grid-area: 1/2/2/3; } .seg .b { grid-area: 2/3/3/4; } .seg .c { grid-area: 4/3/5/4; }
   .seg .d { grid-area: 5/2/6/3; } .seg .e { grid-area: 4/1/5/2; } .seg .f { grid-area: 2/1/3/2; } .seg .g { grid-area: 3/2/4/3; }
-  .seg.tick { width: 6px; } .seg.tick i { grid-area: 1/1/3/4; opacity: 1; width: 4px; height: 8px; }
-  .datestamp .gap { width: 2px; }
+  .seg.tick { display: block; width: 4px; height: 31px; position: relative; }
+  .seg.tick i { position: absolute; top: 0; left: 0; width: 4px; height: 9px; opacity: 1; }
+  .datestamp .sp { width: 4px; }
 
   section.block { padding: 44px 0 0; }
   .eyebrow { display: inline-block; margin-bottom: 14px; }
@@ -346,6 +348,7 @@
   var stamp = document.getElementById('datestamp');
   stamp.setAttribute('aria-label', 'Date stamp ' + parts.join(' '));
   parts.forEach(function (p, i) {
+    if (i > 0) { var sp = document.createElement('span'); sp.className = 'sp'; stamp.appendChild(sp); }
     if (i === 2) { var tick = document.createElement('span'); tick.className = 'seg tick'; tick.appendChild(document.createElement('i')); stamp.appendChild(tick); }
     p.split('').forEach(function (c) { stamp.appendChild(digit(c)); });
   });
