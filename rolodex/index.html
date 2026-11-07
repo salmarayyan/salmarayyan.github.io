@@ -81,7 +81,27 @@
 
   /* ---------- The lab envelope ---------- */
   .lab { display: grid; justify-items: center; }
-  .envelope-stage { position: relative; width: min(100%, 340px); padding: 140px 0 28px; }
+  .envelope-stage { position: relative; width: min(100%, 340px); padding: 250px 0 28px; }
+  .envelope:focus:not(:focus-visible) { outline: none; }
+  .prints { position: absolute; left: 50%; top: 250px; width: 0; height: 0; pointer-events: none; z-index: 0; }
+  .print {
+    position: absolute; left: -62px; top: 0; width: 124px; margin: 0; padding: 6px 6px 8px;
+    background: var(--paper); border: 2px solid var(--ink); border-radius: 8px; box-shadow: var(--shadow-sm);
+    transform: translateY(30px) scale(.85); opacity: 0;
+    transition: transform .8s cubic-bezier(.25,1.5,.45,1), opacity .25s;
+  }
+  .print img { width: 100%; height: auto; border: 2px solid var(--ink); border-radius: 4px; }
+  .print figcaption { margin-top: 6px; text-align: center; font: 400 12px/1.2 var(--type); }
+  .envelope-stage.open .print { opacity: 1; pointer-events: auto; }
+  .envelope-stage.open .print:nth-child(1) { transform: translate(-112px, -238px) rotate(-12deg); transition-delay: .3s; }
+  .envelope-stage.open .print:nth-child(2) { transform: translate(0px, -262px) rotate(1.5deg); transition-delay: .42s; }
+  .envelope-stage.open .print:nth-child(3) { transform: translate(112px, -236px) rotate(12deg); transition-delay: .54s; }
+  @media (min-width: 700px) {
+    .print { width: 150px; left: -75px; }
+    .envelope-stage.open .print:nth-child(1) { transform: translate(-150px, -290px) rotate(-12deg); }
+    .envelope-stage.open .print:nth-child(2) { transform: translate(0px, -316px) rotate(1.5deg); }
+    .envelope-stage.open .print:nth-child(3) { transform: translate(150px, -288px) rotate(12deg); }
+  }
   .envelope { z-index: 1; }
   .envelope {
     position: relative; width: 100%; aspect-ratio: 1.25; border: 0; padding: 0; cursor: pointer;
@@ -100,8 +120,8 @@
   }
   .envelope .flap svg { width: 100%; height: 100%; }
   .envelope .tag { position: absolute; left: 10px; top: 36%; transform: rotate(-6deg); transition: opacity .3s; }
-  .envelope-stage.open .envelope { transform: scale(1.04) translateY(10px); }
-  .envelope-stage.open .flap { transform: perspective(700px) rotateX(178deg); }
+  .envelope-stage.open .envelope { transform: translateY(16px); }
+  .envelope-stage.open .flap { transform: perspective(700px) rotateX(180deg); }
   .envelope-stage.open .tag { opacity: 0; }
 
   .tear { margin-top: 22px; transform: rotate(2deg); cursor: pointer; }
@@ -218,7 +238,12 @@
     <span class="sticker mustard eyebrow" style="font-family:var(--display);font-size:24px;padding:6px 16px">roll's back!</span>
     <h2 id="lab-title" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">The envelope</h2>
     <div class="envelope-stage" id="stage">
-      <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-label="Open the envelope">
+      <div class="prints" aria-hidden="true">
+        <figure class="print"><img src="/rolodex/prints/load.jpg" alt="" width="332" height="720" loading="lazy"><figcaption>load film</figcaption></figure>
+        <figure class="print"><img src="/rolodex/prints/shoot.jpg" alt="" width="332" height="720" loading="lazy"><figcaption>shoot the roll</figcaption></figure>
+        <figure class="print"><img src="/rolodex/prints/shelf.jpg" alt="" width="332" height="720" loading="lazy"><figcaption>the shelf</figcaption></figure>
+      </div>
+      <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-label="Open the envelope to see the app">
         <img class="mark" src="/rolodex/assets/wordmark-3d.svg" alt="" width="682" height="195">
         <span class="lab-line">photo lab · prints enclosed</span>
         <span class="stripes" aria-hidden="true"><span style="background:var(--rose)"></span><span style="background:var(--plum)"></span><span style="background:var(--mustard)"></span><span style="background:var(--tomato)"></span><span style="background:var(--sky)"></span><span style="background:var(--leaf)"></span><span style="background:var(--violet)"></span><span style="background:var(--tangerine)"></span><span style="background:var(--slate)"></span></span>
@@ -229,7 +254,7 @@
       </button>
     </div>
     <button class="sticker marker tear" id="tear" type="button">tap to tear it open</button>
-    <p class="sticker mustard done" id="done" aria-live="polite">your prints are back. that's the whole point.</p>
+    <p class="sticker mustard done" id="done" aria-live="polite">three from the roll: load film, shoot, and the shelf.</p>
     <canvas id="confetti" aria-hidden="true"></canvas>
   </section>
 
@@ -276,14 +301,6 @@
         <li><b>3</b><span>Send it to develop. Your prints come back to the shelf shortly after.</span></li>
       </ol>
       <div class="foot">THANK YOU · COME AGAIN</div>
-    </div>
-  </section>
-
-  <section class="block reveal" aria-labelledby="private-title">
-    <h2 id="private-title">Private by design</h2>
-    <div class="card index-card">
-      <span class="sticker pin" aria-hidden="true">no cloud</span>
-      <p>Your photos are stored only on your iPhone and are never uploaded. Rolodex has no account, no ads and no tracking.</p>
     </div>
   </section>
 
@@ -360,7 +377,7 @@
     if (!reduce) confetti(env);
   }
   env.addEventListener('click', open);
-  tear.addEventListener('click', function () { open(); env.focus(); });
+  tear.addEventListener('click', open);
 
   // Bits of striped paper thrown in the air, after ConfettiBurst in the app.
   var COLORS = ['#E0475B', '#5B3A4E', '#F5C83A', '#E2492F', '#4BA3DB', '#4FA36A', '#5A3E9E', '#EE7E2F', '#4F6467'];
