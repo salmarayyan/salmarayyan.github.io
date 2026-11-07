@@ -43,7 +43,11 @@
     padding: 10.5%;
     margin-top: 44px;
   }
-  .hero .logo-plate img { width: 100%; height: auto; }
+  .hero .logo-plate img, .hero .logo-plate svg { width: 100%; height: auto; display: block; }
+  /* Launch pop, like the app: the wordmark springs up, then its extrusion grows back. */
+  .hero .logo-plate .mark { opacity: 0; transform: scale(.7); }
+  .hero .logo-plate .mark.popped { opacity: 1; transform: scale(1); transition: opacity .3s, transform .45s cubic-bezier(.3,1.6,.6,1); }
+  @media (prefers-reduced-motion: reduce) { .hero .logo-plate .mark { opacity: 1; transform: none; } }
   .hero .tagline {
     margin: 30px 0 0; padding: 8px 20px; display: inline-block;
     background: var(--mustard); border: var(--border) solid var(--ink); border-radius: 12px;
@@ -218,7 +222,7 @@
   <svg class="zebra" id="zebra" aria-hidden="true" preserveAspectRatio="none"></svg>
   <div class="wrap inner">
     <div class="logo-plate">
-      <img src="/rolodex/assets/wordmark-3d.svg" alt="Rolodex" width="682" height="195">
+      <div class="mark" id="mark"><img src="/rolodex/assets/wordmark-3d.svg" alt="Rolodex" width="682" height="195"></div>
     </div>
     <p class="tagline">Made for candid moments.</p>
     <p class="sticker soon">Coming soon to the App Store</p>
@@ -328,6 +332,7 @@
 <script>
 (function () {
   // Zebra waves, drawn once like the app's "roll's back!" screen.
+  function reduceMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
   function rand(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
   function zebra() {
     var svg = document.getElementById('zebra'), hero = svg.parentNode;
@@ -348,6 +353,37 @@
   }
   zebra();
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(zebra, 120); });
+
+  // Launch splash, after LaunchSplash in the app: pop in with a spring, then the
+  // 64 extrusion layers grow back toward the vanishing point over 0.8s.
+  var mark = document.getElementById('mark');
+  if (reduceMotion()) { mark.classList.add('popped'); }
+  else {
+    fetch('/rolodex/assets/wordmark-3d.svg').then(function (r) { return r.text(); }).then(function (txt) {
+      var doc = new DOMParser().parseFromString(txt, 'image/svg+xml'), svg = doc.documentElement;
+      svg.removeAttribute('width'); svg.removeAttribute('height');
+      var uses = Array.prototype.slice.call(svg.querySelectorAll('use')), n = uses.length;
+      var VX = 340.55, VY = -200.72, DEPTH = 0.2;
+      function setGrowth(g) {
+        uses.forEach(function (u, i) {
+          var t = i / (n - 1), sc = 1 - DEPTH * g * (1 - t);
+          u.setAttribute('transform', 'translate(' + VX + ' ' + VY + ') scale(' + sc.toFixed(5) + ') translate(' + -VX + ' ' + VY * -1 + ')');
+        });
+      }
+      setGrowth(0);
+      mark.innerHTML = ''; mark.appendChild(svg);
+      setTimeout(function () { mark.classList.add('popped'); }, 150);
+      var start = null;
+      function grow(ts) {
+        if (!start) start = ts;
+        var x = Math.min(1, (ts - start - 250) / 800);
+        if (x >= 0) setGrowth(1 - Math.pow(1 - x, 3));
+        if (x < 1) requestAnimationFrame(grow);
+      }
+      requestAnimationFrame(grow);
+      setTimeout(function () { setGrowth(1); }, 1300); // in case frames were throttled
+    }).catch(function () { mark.classList.add('popped'); });
+  }
 
   // Date stamp in seven-segment digits: MM DD 'YY.
   var SEG = { '0':'abcdef', '1':'bc', '2':'abdeg', '3':'abcdg', '4':'bcfg', '5':'acdfg', '6':'acdefg', '7':'abc', '8':'abcdefg', '9':'abcdfg' };
