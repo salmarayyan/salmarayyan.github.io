@@ -81,7 +81,8 @@
 
   /* ---------- The lab envelope ---------- */
   .lab { display: grid; justify-items: center; }
-  .envelope-stage { position: relative; width: min(100%, 340px); padding: 180px 0 28px; }
+  .envelope-stage { position: relative; width: min(100%, 340px); padding: 140px 0 28px; }
+  .envelope { z-index: 1; }
   .envelope {
     position: relative; width: 100%; aspect-ratio: 1.25; border: 0; padding: 0; cursor: pointer;
     background: var(--kraft); border: var(--border) solid var(--ink); border-radius: 12px; box-shadow: var(--shadow);
@@ -99,24 +100,22 @@
   }
   .envelope .flap svg { width: 100%; height: 100%; }
   .envelope .tag { position: absolute; left: 10px; top: 36%; transform: rotate(-6deg); transition: opacity .3s; }
-  .envelope-stage.open .envelope { transform: scale(1.04) translateY(26px); }
+  .envelope-stage.open .envelope { transform: scale(1.04) translateY(10px); }
   .envelope-stage.open .flap { transform: perspective(700px) rotateX(178deg); }
   .envelope-stage.open .tag { opacity: 0; }
 
-  .prints { position: absolute; left: 50%; top: 180px; width: 0; height: 0; pointer-events: none; z-index: 0; }
-  .envelope { z-index: 1; }
-  .print {
-    position: absolute; left: -70px; top: -10px; width: 140px; margin: 0; padding: 8px 8px 24px;
-    background: var(--paper); border: 2px solid var(--ink); border-radius: 6px; box-shadow: var(--shadow-sm);
-    transform: translateY(40px) rotate(0deg) scale(.9); opacity: 0;
-    transition: transform .7s cubic-bezier(.25,1.6,.45,1), opacity .25s;
-  }
-  .print img { width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; border: 2px solid var(--ink); }
-  .envelope-stage.open .print { opacity: 1; }
-  .envelope-stage.open .print:nth-child(1) { transform: translate(-115px, -135px) rotate(-14deg); transition-delay: .35s; }
-  .envelope-stage.open .print:nth-child(2) { transform: translate(0px, -165px) rotate(2deg); transition-delay: .45s; }
-  .envelope-stage.open .print:nth-child(3) { transform: translate(115px, -130px) rotate(13deg); transition-delay: .55s; }
   .tear { margin-top: 22px; transform: rotate(2deg); cursor: pointer; }
+  #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 40; }
+  .envelope-stage.open + .tear { opacity: 0; pointer-events: none; }
+  .lab .done { margin-top: 22px; opacity: 0; transform: rotate(-2deg) scale(.8); transition: opacity .3s .6s, transform .5s .6s cubic-bezier(.3,1.6,.6,1); }
+  .lab .done.show { opacity: 1; transform: rotate(-2deg) scale(1); }
+
+  /* Sections drift up into place as you scroll. */
+  html { scroll-behavior: smooth; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,1.2,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal:nth-child(2) { transition-delay: .08s; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
   .envelope-stage.open + .tear { opacity: 0; pointer-events: none; }
 
   /* ---------- Pick a film ---------- */
@@ -215,16 +214,11 @@
 
 <main class="wrap">
 
-  <section class="block lab" aria-labelledby="lab-title">
+  <section class="block lab reveal" aria-labelledby="lab-title">
     <span class="sticker mustard eyebrow" style="font-family:var(--display);font-size:24px;padding:6px 16px">roll's back!</span>
     <h2 id="lab-title" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">The envelope</h2>
     <div class="envelope-stage" id="stage">
-      <div class="prints" aria-hidden="true">
-        <figure class="print"><img src="/rolodex/prints/1.jpg" alt="" width="600" height="800" loading="lazy"></figure>
-        <figure class="print"><img src="/rolodex/prints/2.jpg" alt="" width="600" height="800" loading="lazy"></figure>
-        <figure class="print"><img src="/rolodex/prints/3.jpg" alt="" width="600" height="800" loading="lazy"></figure>
-      </div>
-      <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-label="Open the envelope to see three prints">
+      <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-label="Open the envelope">
         <img class="mark" src="/rolodex/assets/wordmark-3d.svg" alt="" width="682" height="195">
         <span class="lab-line">photo lab · prints enclosed</span>
         <span class="stripes" aria-hidden="true"><span style="background:var(--rose)"></span><span style="background:var(--plum)"></span><span style="background:var(--mustard)"></span><span style="background:var(--tomato)"></span><span style="background:var(--sky)"></span><span style="background:var(--leaf)"></span><span style="background:var(--violet)"></span><span style="background:var(--tangerine)"></span><span style="background:var(--slate)"></span></span>
@@ -235,9 +229,11 @@
       </button>
     </div>
     <button class="sticker marker tear" id="tear" type="button">tap to tear it open</button>
+    <p class="sticker mustard done" id="done" aria-live="polite">your prints are back. that's the whole point.</p>
+    <canvas id="confetti" aria-hidden="true"></canvas>
   </section>
 
-  <section class="block" aria-labelledby="films-title">
+  <section class="block reveal" aria-labelledby="films-title">
     <h2 id="films-title">Pick a film</h2>
     <p style="color:var(--muted);margin-bottom:18px">Five looks. You choose one when you load a roll and can't swap halfway.</p>
     <div class="films" role="group" aria-label="Film stocks">
@@ -270,7 +266,7 @@
     <p class="film-desc empty" id="film-desc" aria-live="polite"><span class="chip" aria-hidden="true" style="--s1:var(--paper-shade);--s2:var(--paper);--s3:var(--paper-shade)"></span><span>tap a film to load it.</span></p>
   </section>
 
-  <section class="block" aria-labelledby="how-title">
+  <section class="block reveal" aria-labelledby="how-title">
     <h2 id="how-title">How it works</h2>
     <div class="ticket">
       <div class="head"><strong>Rolodex photo lab</strong><span>order ticket · keep this half</span></div>
@@ -283,7 +279,7 @@
     </div>
   </section>
 
-  <section class="block" aria-labelledby="private-title">
+  <section class="block reveal" aria-labelledby="private-title">
     <h2 id="private-title">Private by design</h2>
     <div class="card index-card">
       <span class="sticker pin" aria-hidden="true">no cloud</span>
@@ -291,7 +287,7 @@
     </div>
   </section>
 
-  <section class="appcta" aria-labelledby="cta-title">
+  <section class="appcta reveal" aria-labelledby="cta-title">
     <img class="icon" src="/rolodex/icon.png" alt="Rolodex app icon" width="512" height="512" loading="lazy">
     <h2 id="cta-title">Rolodex for iPhone</h2>
     <p class="sticker mustard">Coming soon to the App Store</p>
@@ -353,15 +349,58 @@
     p.split('').forEach(function (c) { stamp.appendChild(digit(c)); });
   });
 
-  // The envelope.
-  var stage = document.getElementById('stage'), env = document.getElementById('envelope'), tear = document.getElementById('tear');
-  function toggle() {
-    var open = stage.classList.toggle('open');
-    env.setAttribute('aria-expanded', open);
-    env.setAttribute('aria-label', open ? 'Close the envelope' : 'Open the envelope to see three prints');
+  // The envelope: tear it open once, and the lab throws confetti like the app does.
+  var stage = document.getElementById('stage'), env = document.getElementById('envelope'), tear = document.getElementById('tear'), done = document.getElementById('done');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function open() {
+    if (stage.classList.contains('open')) return;
+    stage.classList.add('open');
+    env.setAttribute('aria-expanded', 'true');
+    done.classList.add('show');
+    if (!reduce) confetti(env);
   }
-  env.addEventListener('click', toggle);
-  tear.addEventListener('click', function () { if (!stage.classList.contains('open')) toggle(); env.focus(); });
+  env.addEventListener('click', open);
+  tear.addEventListener('click', function () { open(); env.focus(); });
+
+  // Bits of striped paper thrown in the air, after ConfettiBurst in the app.
+  var COLORS = ['#E0475B', '#5B3A4E', '#F5C83A', '#E2492F', '#4BA3DB', '#4FA36A', '#5A3E9E', '#EE7E2F', '#4F6467'];
+  function confetti(from) {
+    var c = document.getElementById('confetti'), ctx = c.getContext('2d'), dpr = Math.min(2, window.devicePixelRatio || 1);
+    c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.scale(dpr, dpr);
+    var b = from.getBoundingClientRect(), ox = b.left + b.width / 2, oy = b.top + b.height * 0.3;
+    var r = rand(42), pieces = [];
+    for (var i = 0; i < 90; i++) {
+      var a = -Math.PI * 0.95 + r() * Math.PI * 0.9, v = 420 + r() * 520;
+      pieces.push({ vx: Math.cos(a) * v, vy: Math.sin(a) * v, spin: -9 + r() * 18, w: 8 + r() * 6, h: 12 + r() * 10, col: COLORS[i % COLORS.length] });
+    }
+    var start = null;
+    function frame(ts) {
+      if (!start) start = ts;
+      var t = (ts - start) / 1000;
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      pieces.forEach(function (p) {
+        var x = ox + p.vx * t, y = oy + p.vy * t + 900 * t * t;
+        if (y > innerHeight + 40) return;
+        ctx.save(); ctx.translate(x, y); ctx.rotate(p.spin * t); ctx.scale(Math.cos(p.spin * t * 0.7), 1);
+        ctx.fillStyle = p.col; ctx.strokeStyle = '#1A1714'; ctx.lineWidth = 1.5;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.strokeRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+      if (t < 2.4) requestAnimationFrame(frame); else ctx.clearRect(0, 0, innerWidth, innerHeight);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // Sections drift into place as they scroll into view.
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  }
 
   // Pick a film.
   var films = document.querySelectorAll('.film'), desc = document.getElementById('film-desc');
